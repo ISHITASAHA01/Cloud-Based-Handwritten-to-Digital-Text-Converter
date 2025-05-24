@@ -1,147 +1,54 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>InkRead</title>
   <link rel="stylesheet" href="style.css" />
-  <link rel="icon" href="./images/logo.png" type="image/x-icon" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <link rel="icon" href="logo.png" type="image/x-icon" />
 </head>
-
 <body>
-
-  <!-- Navbar -->
-  <nav class="navbar">
-    <div class="nav-left">
-      <a href="#home">
-        <img src="./images/logo.png" class="nav-logo" alt="Logo" />
-      </a>
-      &nbsp;<a href="#home"><p style="color: rgb(11, 132, 207);">InkRead</p></a>
-      <!-- Hamburger Icon -->
-      <div class="hamburger" id="hamburger-icon">
-        <div class="bar"></div>
-        <div class="bar"></div>
-        <div class="bar"></div>
-      </div>
-    </div>
-    <div class="nav-right" id="nav-links">
-      <a href="#home">Home</a>
-      <a href="#about">Developers</a>
-      <a href="#services">Services</a>
-      <a href="#contact">Contact</a>
-    </div>
-  </nav>
   
-
-  <!-- Sections -->
-
-  <section id="home" class="section home">
-    <!-- Background Video -->
-    <video autoplay loop muted playsinline class="background-video">
-      <source src="./images/video.mp4" type="video/mp4">
-      Your browser does not support the video tag.
-    </video>
-    <div class="text-container">
-      <h1 class="animated-text" data-text="Handwritten Text to Digital Text Conversion">Handwritten Text to Digital Text Conversion</h1>
+  <div class="container" id="uploadSection">
+    <h2>Upload Handwritten Image</h2>
+    <input type="file" id="imageInput" accept=".jpg, .jpeg, .png" />
+    <div>
+      <button class="btn" onclick="uploadFile()">Convert</button>
     </div>
-  </section>
+    <div id="progressBar"><div></div></div>
+    <div class="preview-wrapper" id="previewWrapper">
+      <img id="previewImage" class="preview-image" src="" alt="Preview">
+      <button class="close-preview" onclick="closePreview()">&times;</button>
+    </div>
+  </div>
 
-  <!-- About Section (Developers and Carousel) -->
-  <section id="about" class="section about">
-    <div class="carousel-container">
-      <div class="carousel" id="carousel">
-        <div class="card">
-          <img src="./images/picofme.png" alt="James" />
-          <h6>Milan Parua</h6>
-          <p style="font-size: 30px;">Haldia Institute of Technology</p>
-          <a href="https://github.com/milan2milan" target="_blank">
-            <img src="./images/github.png" alt="GitHub Logo" style="width: 25px;height: 25px;">
-          </a>&nbsp;
-          <a href="https://www.linkedin.com/in/milan-parua-cyber-security/" target="_blank">
-            <img src="./images/linkedin.png" alt="LinkedIn Logo" style="width: 25px;height: 25px;">
-          </a>
-        </div>
-        <div class="card">
-          <img src="./images/pushpak.jpeg" alt="Zoe" />
-          <h6>Pushpak Jana</h6>
-          <p style="font-size: 30px;">Haldia Institute of Technology</p>
-          <a href="https://github.com/pushpak2408" target="_blank">
-            <img src="./images/github.png" alt="GitHub Logo" style="width: 25px;height: 25px;">
-          </a>&nbsp;
-          <a href="https://www.linkedin.com/in/pushpakjana" target="_blank">
-            <img src="./images/linkedin.png" alt="LinkedIn Logo" style="width: 25px;height: 25px;">
-          </a>
-        </div>
-        <div class="card">
-          <img src="./images/pritty.jpg" alt="David" />
-          <h6>Prity Manna</h6>
-          <p style="font-size: 30px;">Haldia Institute of Technology</p>
-          <a href="https://github.com/prity-manna" target="_blank">
-            <img src="./images/github.png" alt="GitHub Logo" style="width: 25px;height: 25px;">
-          </a>&nbsp;
-          <a href="https://www.linkedin.com/in/prity-manna-659520220/" target="_blank">
-            <img src="./images/linkedin.png" alt="LinkedIn Logo" style="width: 25px;height: 25px;">
-          </a>
-        </div>
-        <div class="card">
-          <img src="./images/ishita.jpg" alt="David" />
-          <h6>Ishita Saha</h6>
-          <p style="font-size: 30px;">Haldia Institute of Technology</p>
-          <a href="https://github.com/ISHITASAHA01" target="_blank">
-            <img src="./images/github.png" alt="GitHub Logo" style="width: 25px;height: 25px;">
-          </a>&nbsp;
-          <a href="https://www.linkedin.com/in/ishita-saha-36398a263" target="_blank">
-            <img src="./images/linkedin.png" alt="LinkedIn Logo" style="width: 25px;height: 25px;">
-          </a>
-        </div>
-        <div class="card">
-          <img src="./images/sourav.jpg" alt="David" />
-          <h6>Sourav Jana</h6>
-          <p style="font-size: 30px;">Haldia Institute of Technology</p>
-          <a href="https://github.com/Pijus-2024/Pijus-2024" target="_blank">
-            <img src="./images/github.png" alt="GitHub Logo" style="width: 25px;height: 25px;">
-          </a>&nbsp;
-          <a href="https://www.linkedin.com/in/sourav-jana-20a00624b" target="_blank">
-            <img src="./images/linkedin.png" alt="LinkedIn Logo" style="width: 25px;height: 25px;">
-          </a>
-        </div>
+  <div class="container" id="resultSection" style="display:none; flex-direction:column; align-items:center;">
+    <h2>Converted Text</h2>
+
+    <div class="preview-box">
+      <div class="icon-buttons">
+        <button class="icon-btn" onclick="copyText()" title="Copy to clipboard">📋</button>
+        <!-- <button class="icon-btn" onclick="shareText()" title="Share text">📤</button> -->
       </div>
-      <button class="arrow left" id="prevArrow">&#8249;</button>
-      <button class="arrow right" id="nextArrow">&#8250;</button>
+      <pre id="outputText"><br>Loading Failed. Please Reupload</pre>
     </div>
-  </section>
+    
 
-  <!-- Services Section -->
-  <section id="services" class="section services">
-    <div class="service-container">
-      <div class="service-content">
-        <h2>Handwritten Text to Digital Text Conversion</h2>
-        <p>
-          Our Handwritten Text to Digital Text Conversion project leverages AWS Textract to accurately extract and
-          convert handwritten content into digital text. It ensures high accuracy, preserves formatting. Ideal for
-          businesses, researchers, doctors and students, it streamlines document digitization with automation and
-          efficiency.
-        </p>
-        <a href="https://inkread.d96rhnm81ffo0.amplifyapp.com/" class="explore-btn">Explore Service</a>
-      </div>
+    <div>
+      <select id="downloadFormat">
+        <option value="">Select Format</option>
+        <option value="txt">Download as TXT</option>
+        <option value="pdf">Download as PDF</option>
+        <option value="jpg">Download as JPG</option>
+        <option value="png">Download as PNG</option>
+      </select>
+      <button class="btn" onclick="handleDownload()">Download</button>
+      <button class="btn" onclick="speakText()">🔊 Read Aloud</button>
+      <button class="btn" onclick="goBack()">Cancel</button>
     </div>
-  </section>
-
-  <!-- Contact Section -->
-  <section id="contact" class="section contact">
-    <div class="contact-card">
-      <p>serviceprovider01010@gmail.com</p>
-      <h2>Contact Us</h2>
-      <h2>Click the Gmail icon to email us directly!</h2>
-      <a href="https://mail.google.com/mail/?view=cm&fs=1&to=serviceprovider01010@gmail.com" target="_blank">
-        <img src="./images/Gmail.gif" alt="Gmail" class="gmail-icon">
-      </a>
-    </div>
-  </section>
-
-  <!-- Linking the JavaScript File -->
+  </div>
+  <script src="https://sdk.amazonaws.com/js/aws-sdk-2.1413.0.min.js"></script>
   <script src="script.js"></script>
 </body>
-
 </html>
