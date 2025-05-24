@@ -1,0 +1,555 @@
+/* Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  /* Smooth scrolling behavior */
+  html {
+    scroll-behavior: smooth;
+  }
+
+  /* Sections */
+  .section {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 3rem;
+    color: white;
+  }
+  
+/* Navbar styling */
+.navbar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background-color: #0a0a23;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 2rem;
+  z-index: 1000;
+  flex-wrap: wrap;
+}
+
+.nav-left {
+  display: flex;
+  align-items: center;
+}
+
+.nav-logo {
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+}
+
+.nav-right {
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+}
+
+.navbar a {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.navbar a:hover {
+  text-decoration: underline;
+}
+
+/* Hamburger menu styling */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+}
+
+.hamburger .bar {
+  width: 25px;
+  height: 3px;
+  background-color: white;
+  border-radius: 5px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .navbar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .nav-right {
+    flex-direction: column;
+    width: 100%;
+    gap: 1rem;
+    padding-top: 0.5rem;
+    display: none; /* Hide nav links by default */
+  }
+
+  .hamburger {
+    display: flex;
+  }
+  .nav-right.open {
+    display: flex;
+  }
+}
+
+  
+
+/*----------------------------------------------------------------------------------------------------*/
+/*Home section*/
+  
+.background-video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -1;
+  pointer-events: none;
+}
+
+.home .text-container {
+  position: relative;
+  padding: 0 1rem;
+  text-align: center;
+}
+
+
+
+.home .animated-text {
+  font-size: clamp(1.5rem, 5vw, 4rem);
+  font-weight: bold;
+  color: white;
+  text-transform: uppercase;
+  letter-spacing: 4px;
+  display: inline-block;
+  opacity: 0;
+  overflow: hidden;
+  animation: fade-in 1s ease-out forwards;
+  animation-delay: 0.2s;
+}
+
+.home .image-container {
+  perspective: 1000px;
+}
+
+.home .image-container img {
+  transform-style: preserve-3d;
+}
+
+.home .animated-text::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  color: transparent;
+  text-shadow: 0 0 0px rgba(0, 255, 255, 0.8);
+  animation: lighting-spread 1s ease-in-out forwards;
+  animation-delay: 0.5s;
+}
+
+@keyframes lighting-spread {
+  0% {
+    text-shadow: 0 0 0px rgba(0, 255, 255, 0.8);
+  }
+  50% {
+    text-shadow: 0 0 20px rgba(0, 255, 255, 1), 0 0 30px rgba(0, 255, 255, 0.8);
+  }
+  100% {
+    text-shadow: 0 0 0px rgba(0, 255, 255, 0.8);
+  }
+}
+
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.home .text-container::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  height: 3px;
+  background: rgba(0, 255, 255, 0.7);
+  opacity: 0;
+  animation: underline-glow 3s ease-in-out forwards;
+  animation-delay: 2s;
+}
+
+@keyframes underline-glow {
+  0% {
+    width: 0;
+    opacity: 0;
+  }
+  100% {
+    width: 100%;
+    opacity: 1;
+  }
+}
+
+body {
+  background-color: #000000;
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  color: white;
+}
+
+.about {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: #0a0a23 url('./images/dev.jpg') no-repeat center center/cover;
+  font-family: 'Segoe UI', sans-serif;
+  color: white;
+  padding: 2rem;
+  box-sizing: border-box;
+  text-align: center;
+  overflow: hidden; /* Prevent any overflow outside of the about section */
+}
+
+.about .carousel-container {
+  max-width: 1000px;
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+}
+
+.about .carousel {
+  display: flex;
+  flex-wrap: nowrap; /* Ensure that the items stay in a row */
+  justify-content: flex-start;
+  transition: transform 0.8s ease-in-out;
+}
+
+.about .card {
+  flex: 0 0 33.33%; /* 3 cards per row on desktop */
+  background: rgba(255, 255, 255, 0.05);
+  padding: 2rem;
+  border-radius: 20px;
+  text-align: center;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+  transition: transform 0.5s, filter 0.5s, opacity 0.5s;
+  backdrop-filter: blur(2px);
+}
+
+.about .card img {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 1rem;
+  border: 2px solid white;
+}
+
+.about .card:hover {
+  cursor: pointer;
+  transform: scale(1.05);
+}
+
+/* Add left and right arrows */
+.arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0, 0, 0, 0.5);
+  color: white;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+  font-size: 30px;
+  z-index: 10;
+}
+
+.arrow.left {
+  left: 10px;
+}
+
+.arrow.right {
+  right: 10px;
+
+/* Adjust the visibility of the cards based on the screen width */
+@media (max-width: 992px) {
+  .about .carousel {
+    justify-content: flex-start;
+  }
+
+  .about .card {
+    flex: 0 0 100%; /* 1 card per row on tablets */
+  }
+}
+
+@media (max-width: 600px) {
+  .about .carousel {
+    justify-content: flex-start;
+  }
+
+  .about .card {
+    flex: 0 0 100%; /* 1 card per row on small screens (Android) */
+  }
+}
+
+}
+
+
+
+/*-------------------------------------------------------------------------------------------------------------------------------------
+  
+/* Service section */
+.services {
+  background: #000000;
+  padding: 5rem 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  color: white;
+  text-align: center;
+}
+
+.service-container {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 3rem;
+  border-radius: 20px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  width: 100%;
+  max-width: 1000px;
+}
+
+.service-content h2 {
+  font-size: clamp(1.8rem, 2.5vw + 1rem, 2.5rem);
+  margin-bottom: 1.5rem;
+}
+
+.service-content p {
+  font-size: clamp(1rem, 1.2vw + 0.5rem, 1.1rem);
+  line-height: 1.6;
+  margin-bottom: 2rem;
+  padding: 0 1rem;
+}
+
+.explore-btn {
+  position: relative;
+  padding: 1rem 2.5rem;
+  font-size: clamp(1rem, 1vw + 0.5rem, 1.2rem);
+  text-transform: uppercase;
+  color: white;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(0, 255, 255, 0.3);
+  border-radius: 12px;
+  cursor: pointer;
+  overflow: hidden;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 0 15px rgba(0, 255, 255, 0.2);
+  transition: all 0.3s ease-in-out;
+  z-index: 1;
+}
+
+/* Ripple background */
+.explore-btn::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  background: rgba(0, 255, 255, 0.25);
+  backdrop-filter: blur(30px);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  transition: width 0.5s ease, height 0.5s ease, opacity 0.5s ease;
+  opacity: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* Shimmer effect */
+.explore-btn::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(135deg, rgba(0, 255, 255, 0.15), transparent);
+  transform: rotate(25deg);
+  animation: glass-shimmer 3s linear infinite;
+  z-index: 0;
+  pointer-events: none;
+}
+
+@keyframes glass-shimmer {
+  0% {
+    transform: rotate(25deg) translateX(-100%);
+  }
+  100% {
+    transform: rotate(25deg) translateX(100%);
+  }
+}
+
+.explore-btn span {
+  position: relative;
+  z-index: 1;
+  pointer-events: auto;
+}
+
+.explore-btn:hover {
+  color: #000;
+  background: rgba(0, 255, 255, 0.7);
+  box-shadow: 0 0 25px rgba(0, 255, 255, 0.6), 0 0 60px rgba(0, 255, 255, 0.3);
+}
+
+/* ===== Responsive Adjustments ===== */
+@media (max-width: 768px) {
+  .service-container {
+    padding: 2rem;
+  }
+
+  .service-content h2 {
+    font-size: 2rem;
+  }
+
+  .service-content p {
+    font-size: 1rem;
+    padding: 0;
+  }
+
+  .explore-btn {
+    padding: 0.75rem 2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .services {
+    padding: 3rem 1rem;
+  }
+
+  .service-content h2 {
+    font-size: 1.75rem;
+  }
+
+  .service-content p {
+    font-size: 0.95rem;
+  }
+
+  .explore-btn {
+    font-size: 1rem;
+    padding: 0.7rem 1.5rem;
+  }
+}
+
+  
+  
+  
+.contact {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: url('./images/serviceprovider.jpg') no-repeat center center/cover;
+  color: rgb(0, 0, 0);
+  text-align: center;
+  padding: 2rem;
+  box-sizing: border-box;
+}
+
+
+.contact-card {
+  width: 100%;
+  max-width: 500px;
+  background: rgba(254, 253, 255, 0.10);
+  padding: 2rem;
+  border-radius: 20px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(3px);
+  transition: all 0.3s ease;
+}
+
+.contact-card h2 {
+  font-size: clamp(1.5rem, 2vw + 1rem, 2.5rem);
+  margin-bottom: 1rem;
+}
+
+.contact-card p {
+  font-size: clamp(1rem, 1vw + 0.5rem, 1.25rem);
+}
+
+.gmail-icon {
+  width: 60px;
+  height: 60px;
+  margin-top: 1rem;
+  transition: transform 0.3s ease;
+  cursor: pointer;
+}
+
+.gmail-icon:hover {
+  transform: scale(1.1);
+}
+
+  
+  
+
+/* icon */
+  .nav-logo {
+    width: 32px;
+    height: 32px;
+    border-radius: 10px;
+    object-fit: contain;
+  }
+  
+
+  h3 {
+    font-size: clamp(1.2rem, 2vw + 1rem, 2.5rem); /* Min 1.2rem, scales with screen, max 2.5rem */
+    color: #ffffff;
+    text-align: center;
+    margin-bottom: 1rem;
+  }
+/* CSS for neon glass effect */
+.text-container img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 20px;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  background: rgba(255, 255, 255, 0.1);
+  box-shadow:
+    0 0 10px rgba(0, 255, 255, 0.6),
+    0 0 20px rgba(0, 255, 255, 0.4),
+    0 0 40px rgba(0, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  transition: all 0.3s ease;
+}
+
+/* Optional hover effect */
+.text-container img:hover {
+  box-shadow:
+    0 0 15px rgba(0, 255, 255, 0.9),
+    0 0 30px rgba(0, 255, 255, 0.7),
+    0 0 60px rgba(0, 255, 255, 0.5);
+  transform: scale(1.02);
+}
+
+/* Responsive adjustments */
+@media screen and (max-width: 768px) {
+  .text-container img {
+    width: 100%;
+    height: auto;
+  }
+}
